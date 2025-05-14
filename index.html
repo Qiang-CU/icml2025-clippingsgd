@@ -93,8 +93,7 @@
                       </span>
                       <span>Poster (ICML2024 Workshop Version)</span>
                       </a>
-                    </span> 
-                   
+                    </span>
 
                   <!-- Github link -->
                   <span class="link-block">
@@ -279,12 +278,36 @@
     <div class="container is-max-desktop content">
       <h2 class="title">BibTeX</h2>
       <div class="notification is-light">
-        <pre style="background-color:transparent; border: none;"><code>@inproceedings{li2025clipped,
+        <button class="button is-small is-info is-light is-pulled-right" onclick="copyToClipboard()">
+          <span class="icon">
+            <i class="fas fa-copy"></i>
+          </span>
+          <span>Copy</span>
+        </button>
+        <pre style="background-color:transparent; border: none;" id="bibtex"><code>@inproceedings{li2025clipped,
   title={Clipped SGD Algorithms for Performative Prediction: Tight Bounds for Clipping Bias and Remedies},
   author={Li, Qiang and Yemini, Michal and Wai, Hoi-To},
   booktitle={International Conference on Machine Learning (ICML)},
   year={2025}
 }</code></pre>
+        <script>
+          function copyToClipboard() {
+            const bibtexText = document.getElementById('bibtex').textContent;
+            navigator.clipboard.writeText(bibtexText)
+              .then(() => {
+                const button = document.querySelector('.button.is-info.is-light');
+                button.classList.add('is-success');
+                button.classList.remove('is-info');
+                setTimeout(() => {
+                  button.classList.remove('is-success');
+                  button.classList.add('is-info');
+                }, 2000);
+              })
+              .catch(err => {
+                console.error('Failed to copy text: ', err);
+              });
+          }
+        </script>
       </div>
     </div>
 </section>
