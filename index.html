@@ -141,6 +141,15 @@
             <p>
               This paper studies the convergence of clipped stochastic gradient descent (SGD) algorithms with decision-dependent data distribution. Our setting is motivated by privacy preserving optimization algorithms that interact with performative data where the prediction models can influence future outcomes. This challenging setting involves the non-smooth clipping operator and non-gradient dynamics due to distribution shifts. We make two contributions in pursuit for a performative stable solution using clipped SGD algorithms. First, we characterize the clipping bias with projected clipped SGD (PCSGD) algorithm which is caused by the clipping operator that prevents PCSGD from reaching a stable solution. When the loss function is strongly convex, we quantify the lower and upper bounds for this clipping bias and demonstrate a bias amplification phenomenon with the sensitivity of data distribution. When the loss function is non-convex, we bound the magnitude of stationarity bias. Second, we propose remedies to mitigate the bias either by utilizing an optimal step size design for PCSGD, or to apply the recent DiceSGD algorithm [Zhang et al., 2023]. Our analysis is also extended to show that the latter algorithm is free from clipping bias in the performative setting. Numerical experiments verify our findings.
             </p>
+            
+            <h3 class="title is-4 has-text-centered">Keywords</h3>
+            <p class="has-text-centered">
+              <span class="tag is-medium is-link is-light">Performative Prediction</span>
+              <span class="tag is-medium is-link is-light">(Non)convex Optimization</span>
+              <span class="tag is-medium is-link is-light">Clipping SGD Algorithm</span>
+              <span class="tag is-medium is-link is-light">Differential Privacy</span>
+              <span class="tag is-medium is-link is-light">Distribution Shift</span>
+            </p>
           </div>
         </div>
       </div>
