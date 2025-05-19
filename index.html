@@ -43,6 +43,65 @@
   <script src="static/js/bulma-carousel.min.js"></script>
   <script src="static/js/bulma-slider.min.js"></script>
   <script src="static/js/index.js"></script>
+  
+  <!-- MathJax for rendering equations -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  
+  <!-- MathJax configuration with custom macros -->
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true,
+        packages: {'[+]': ['noerrors']},
+        macros: {
+          // Basic sets
+          RR: '{\\mathbb{R}}',
+          EE: '{\\mathbb{E}}',
+          PP: '{\\mathbb{P}}',
+          ZZ: '{\\mathbb{Z}}',
+          NN: '{\\mathbb{N}}',
+          QQ: '{\\mathbb{Q}}',
+          CC: '{\\mathbb{C}}',
+          
+          // Operators
+          tr: '{\\operatorname{tr}}',
+          diag: '{\\operatorname{diag}}',
+          rank: '{\\operatorname{rank}}',
+          sgn: '{\\operatorname{sgn}}',
+          spanop: '{\\operatorname{span}}',
+          proj: '{\\operatorname{proj}}',
+          proxb: '{\\operatorname{prox}}',
+          sign: '{\\operatorname{sign}}',
+          
+          // Custom notations
+          norm: ['{\\left\\lVert #1 \\right\\rVert}', 1],
+          inner: ['{\\langle #1, #2 \\rangle}', 2],
+          prm: '{\\bm{\\theta}}',
+          grad: '{\\nabla}',
+          bm: ['{\\boldsymbol{#1}}', 1],
+          
+          // Distributions
+          Normal: '{\\mathcal{N}}',
+          Uniform: '{\\mathcal{U}}',
+          Bernoulli: '{\\mathcal{B}}',
+          
+          // Algorithm-specific
+          clip: '{\\operatorname{clip}}',
+          noiseop: '{\\mathcal{N}}',
+          lossfn: '{\\ell}'
+        }
+      },
+      options: {
+        renderActions: {
+          addMenu: []
+        }
+      }
+    };
+  </script>
+  
 </head>
 <body>
 
@@ -68,6 +127,15 @@
                     <span class="author-block"><sup>1</sup>Department of SEEM, The Chinese University of Hong Kong, Hong Kong<br>
                     <sup>2</sup>Faculty of Engineering, Bar-Ilan University, Israel<br>
                     International Conference on Machine Learning (ICML 2025) Main Conference</span>
+                  </div>
+
+                  <div class="is-flex is-justify-content-center mt-2 mb-3">
+                    <div class="mx-2" style="height: 70px;">
+                      <img src="static/images/CUHK.png" alt="CUHK Logo" style="height: 100%;">
+                    </div>
+                    <div class="mx-2" style="height: 70px;">
+                      <img src="static/images/BIU.jpg" alt="BIU Logo" style="height: 100%;">
+                    </div>
                   </div>
 
                   <div class="column has-text-centered">
@@ -156,118 +224,237 @@
   </section>
   <!-- End paper abstract -->
 
-
-  <!-- Image carousel -->
-  <!-- <section class="hero is-small">
-    <div class="hero-body">
-      <div class="container">
-        <div id="results-carousel" class="carousel results-carousel">
-         <div class="item">
-          <img src="static/images/carousel1.jpg" alt="MY ALT TEXT"/>
-          <h2 class="subtitle has-text-centered">
-            First image description.
-          </h2>
+  <!-- Performative Prediction Section -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3 has-text-centered">Performative Prediction</h2>
+          <div class="content has-text-justified">
+            <p>
+              <strong>Performative Prediction</strong> refers to a stochastic optimization problem in which the data distribution depends on the decision variable. This framework is especially relevant in a range of real-world applications:
+            </p>
+            <div class="has-text-centered my-5">
+              <img src="static/images/perf pred.png" alt="Performative Prediction" style="max-width: 40%;">
+            </div>
+            
+            <ul>
+              <li><strong>Loan approval prediction</strong>: When training a classifier for loan applications, the published decision rule (e.g., from a bank) may influence how applicants behave. In anticipation of the classifier, applicants might manipulate their profiles before submission—such as by increasing credit card usage or making artificial transactions—to improve their chances of approval. This feedback loop can impact the convergence and stability of the learning algorithm itself.</li>
+              <li><strong>Signal degeneracy in financial markets</strong>: As discussed in <a href="https://www.morganstanley.com/im/publication/insights/investment-insights/ii_builtforchangeshiftingfrombetatoalpha_us.pdf" target="_blank"><em>Shifting from Beta to Alpha</em></a>, traditional alpha factors often degrade under changing macroeconomic regimes, reducing model accuracy. Additionally, trading behavior influenced by predictive models can itself reshape market dynamics, affecting the distribution of financial data in future periods.</li>
+            </ul>
+            
+            The optmization problem is formulated as following: 
+            <p class="has-text-centered mt-4">
+              <span class="is-size-5">$\min_{\prm \in \RR^d} \EE_{Z\sim \mathcal{D}(\prm)} [\lossfn(\prm; Z)]$</span>
+            </p>
+            where ${\cal D}(\prm)$ capture the distribution induced by decision $\prm$.
+          </div>
+          
         </div>
-        <div class="item">
-          <img src="static/images/carousel2.jpg" alt="MY ALT TEXT"/>
-          <h2 class="subtitle has-text-centered">
-            Second image description.
-          </h2>
-        </div>
-        <div class="item">
-          <img src="static/images/carousel3.jpg" alt="MY ALT TEXT"/>
-          <h2 class="subtitle has-text-centered">
-           Third image description.
-         </h2>
-       </div>
-       <div class="item">
-        <img src="static/images/carousel4.jpg" alt="MY ALT TEXT"/>
-        <h2 class="subtitle has-text-centered">
-          Fourth image description.
-        </h2>
       </div>
     </div>
-  </div>
-</div>
-</section> -->
-<!-- End image carousel -->
+  </section>
+  <!-- End Performative Prediction Section -->
 
-
-
-
-<!-- Youtube video -->
-<!-- <section class="hero is-small is-light">
-  <div class="hero-body">
-    <div class="container">
-      <h2 class="title is-3">Video Presentation</h2>
-      <div class="columns is-centered has-text-centered">
+  <!-- Research Motivation Section -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
         <div class="column is-four-fifths">
+          <h2 class="title is-3 has-text-centered"> Algorithms: PCSGD and DiceSGD</h2>
           
-          <div class="publication-video">
-            <iframe src="https://www.youtube.com/embed/JkaxUblCGz0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          <div class="content has-text-justified">
+            <h4 class="title is-4">Motivation</h4>
+            Gradient clipping techniques is used to deal with multiple obstacles in
+learning algorithms such as the need for privacy preservation <a href="https://arxiv.org/abs/1607.00133" target="_blank">[Abadi et al., 2016]</a>, dealing with gradient explosion in
+non-smooth learning <a href="https://ntu-sp.primo.exlibrisgroup.com/discovery/fulldisplay/alma991013951869705146/65NTU_INST:65NTU_INST" target="_blank">[Shor, 2012]</a> such as training neural
+networks <a href="https://www.fit.vut.cz/study/phd-thesis/283/.en" target="_blank">[Mikolov et al., 2012]</a>; [Zhang et al., 2020a], <a href="https://proceedings.neurips.cc/paper_files/paper/2015/file/934815ad542a4a7c5e8a2dfa04fea9f5-Paper.pdf" target="_blank">[Hazan et al., 2015]</a>, etc.
+            
+            <h4 class="title is-4 mt-5">Research Gap</h4>
+            <p>
+              Most existing works have focused on analyzing SGD algorithms with a smooth drift term. An open problem in the performative prediction literature is to analyze the behavior of <em>clipped SGD</em> algorithms which limit the magnitude of the stochastic gradient at every update step.
+            </p>
+            
+            <h3 class="title is-3 mt-5">📌 Key Contributions</h3>
+            
+            <ul class="mt-4">
+              <li class="mb-3">🔄 <strong>Convergence Analysis under Performative Feedback:</strong> We analyze the convergence of PC-SGD when data distribution depends on the model's decision, showing convergence to a biased performative stable solution under both convex and non-convex settings.</li>
+              
+              <li class="mb-3">📊 <strong>Quantification of Clipping Bias:</strong> We characterize the asymptotic bias introduced by gradient clipping and show it is amplified by distribution shift and clipping sensitivity. A matching lower bound is provided in the strongly convex case.</li>
+              
+              <li class="mb-3">✂️ <strong>Bias Mitigation via Double Clipping:</strong> We study the recently proposed DICE-SGD algorithm and prove that its double clipping scheme can eliminate or significantly reduce the bias, achieving near-exact convergence.</li>
+              
+              <li class="mb-3">🔒 <strong>Privacy–Efficiency Tradeoff:</strong> We identify a tradeoff between differential privacy guarantees and computational efficiency, which informs optimal step size selection in practice.</li>
+            </ul>
+
+            <h4 class="title is-4 mt-5">Theoretical Results</h4>
+            <div class="table-container">
+              <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+                <thead>
+                  <tr>
+                    <th>Algorithm</th>
+                    <th>Loss Function</th>
+                    <th>Convergence</th>
+                    <th>Bias Level</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>PCSGD</td>
+                    <td>Strongly Convex</td>
+                    <td>${\cal O}(1/t) + \text{bias}$</td>
+                    <td><span style="color: #3273dc;">${\bf \Theta}( 1 / (\mu - L \beta)^2 )$</span></td>
+                  </tr>
+                  <tr>
+                    <td>PCSGD</td>
+                    <td>Non-Convex</td>
+                    <td>${\cal O}(1/\sqrt{T}) + \text{bias}$</td>
+                    <td>${\cal O}(\beta + \max\{G-c, 0\}^2)$</td>
+                  </tr>
+                  <tr>
+                    <td>DiceSGD</td>
+                    <td>Strongly Convex</td>
+                    <td>${\cal O}(1/t)$</td>
+                    <td>N/A</td>
+                  </tr>
+                  <tr>
+                    <td>DiceSGD</td>
+                    <td>Non-Convex</td>
+                    <td>${\cal O}(1/\sqrt{T}) + \text{bias}$</td>
+                    <td>${\cal O}(\beta)$</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p class="is-italic has-text-centered">Note: $\beta$ represents the strength of distribution shift. $G$ is bound of gradient and $c$ is the clipping threshold, $t$ is the iteration index, $T$ is the total number of iterations.</p>
+            </div>
+            
+            <h4 class="title is-4 mt-5">PCSGD Algorithm</h4>
+            <div class="box has-background-light">
+              <div class="content">
+                <p>
+                  <strong>Deploy:</strong> $Z_{t+1} \sim {\cal D}( \prm_t )$
+                </p>
+                <p>
+                  <strong>Update:</strong> $\prm_{t+1} = {\cal P}_{\cal X} \big(\prm_t - \gamma_{t+1} \clip_c( \grad \lossfn(\prm_t; Z_{t+1})) \big)$
+                </p>
+                <p>
+                  where ${\cal P}_{\cal X}(\cdot)$ denotes the Euclidean projection operator onto ${\cal X}$, and $\clip_c(\cdot)$ is the clipping operator: for any $\bm{g} \in \RR^d$,
+                </p>
+                <p class="has-text-centered">
+                  $\clip_{c} ( \bm{g} ): \bm{g} \in \RR^d \mapsto \min\left\{1, {c} / {\norm{\bm{g}}_2} \right\} \bm{g}$
+                </p>
+                <p>
+                  where $c>0$ is a clipping parameter.
+                </p>
+              </div>
+            </div>
+            
+            <h4 class="title is-4 mt-5">DiceSGD Algorithm</h4>
+            <div class="box has-background-light">
+              <div class="content">
+                <p><strong>Input:</strong> Parameters $C_1$, $C_2$, step sizes, privacy parameters $\varepsilon$, $\delta$, initialization $\prm_0$, $e_0 = \bm{0}$.</p>
+                <p><strong>For</strong> $t=0$ to $T-1$:</p>
+                <ol>
+                  <li>Draw new sample $Z_{t+1}\sim {\cal D}(\prm_t)$ and Gaussian noise $\zeta_{t+1} \sim {\cal N}(0, \sigma^2 \bm{I})$.</li>
+                  <li>$v_{t+1} = \clip_{C_1}(\grad \lossfn(\prm_t; Z_{t+1})) + \clip_{C_2}(e_t)$.</li>
+                  <li>$\prm_{t+1} = \prm_t - \gamma_{t+1} (v_{t+1} + \zeta_{t+1})$</li>
+                  <li>$e_{t+1} = e_t + \grad \lossfn(\prm_t; Z_{t+1}) - v_{t+1}$.</li>
+                </ol>
+                <p><strong>Output:</strong> Last iterate $\prm_{T}$.</p>
+              </div>
+            </div>
+            
+            
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section> -->
-<!-- End youtube video -->
-
-
-<!-- Video carousel -->
-<!-- <section class="hero is-small">
-  <div class="hero-body">
-    <div class="container">
-      <h2 class="title is-3">Another Carousel</h2>
-      <div id="results-carousel" class="carousel results-carousel">
-        <div class="item item-video1">
-          <video poster="" id="video1" autoplay controls muted loop height="100%">
-            <source src="static/videos/carousel1.mp4"
-            type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-video2">
-          <video poster="" id="video2" autoplay controls muted loop height="100%">
-            <source src="static/videos/carousel2.mp4"
-            type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-video3">
-          <video poster="" id="video3" autoplay controls muted loop height="100%">\
-            <source src="static/videos/carousel3.mp4"
-            type="video/mp4">
-          </video>
+  </section>
+  <!-- End Research Motivation Section -->
+  
+  <!-- Simulation Results Section -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3 has-text-centered">Simulation Results</h2>
+          
+          <div class="content has-text-justified">
+            <p>
+              We consider a scalar performative risk optimization problem with synthetic data:
+            </p>
+            <p class="has-text-centered">
+              $\min_{\prm \in {\cal X}}~ \EE_{z\sim {\cal D}(\prm)}[(\prm + az)^2/2]$
+            </p>
+            <p>
+              where ${\cal D}(\prm)$ is a uniform distribution over the data points $\{ b \tilde{Z}_i - \beta \prm \}_{i=1}^m$ such that $\tilde{Z}_i \sim {\cal B}(p)$ is Bernoulli distribution.
+            </p>
+            
+            <h5 class="title is-4 mt-5">Experimental Results</h5>
+            
+            <div class="columns is-centered mt-4">
+              <div class="column">
+                <div class="columns is-centered">
+                  <div class="column is-4">
+                    <figure class="image">
+                      <img src="static/images/quad_min.png" alt="Quadratic Minimization" style="width: 100%; height: auto;">
+                    </figure>
+                  </div>
+                  <div class="column is-4">
+                    <figure class="image">
+                      <img src="static/images/eps_vs_utility.png" alt="Privacy vs Utility" style="width: 100%; height: auto;">
+                    </figure>
+                  </div>
+                  <div class="column is-4">
+                    <figure class="image">
+                      <img src="static/images/pb_vs_utility.png" alt="Parameter vs Utility" style="width: 100%; height: auto;">
+                    </figure>
+                  </div>
+                </div>
+                <div class="content has-text-centered mt-4">
+                  <p class="subtitle is-6">
+                    <strong>Figure:</strong> (left) The performative stability gap $\|\prm_t - \prm_{PS}\|^2$. (middle) Trade off between privacy budget $\varepsilon$ and bias. (right) Bias amplification effect due to $\beta$.
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            <h4 class="title is-4 mt-5">Observations</h4>
+            <ul>
+              <li>PCSGD cannot converge to $\prm_{PS}$ due to the clipping bias which increases as $\beta \uparrow$.</li>
+              <li>DiceSGD finds a <em>bias-free</em> solution as it converges to $\prm_{PS}$ at rate ${\cal O}(1/t)$.</li>
+              <li>As the privacy budget decreases $\varepsilon \downarrow 0$ or $\beta \uparrow \frac{\mu}{L}$, the bias increases.</li>
+            </ul>
+            
+            
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section> -->
-<!-- End video carousel -->
-
-
-
-
-
-
-<!-- Paper poster -->
-<!-- <section class="hero is-small is-light">
-  <div class="hero-body">
-    <div class="container">
-      <h2 class="title">Poster (ICML2024 Workshop Version)</h2>
-
-      <iframe  src="static/pdfs/Fancy_Posters_ICML_Workshop.pdf" width="100%" height="550">
-          </iframe>
-        
+  </section>
+  <!-- End Simulation Results Section -->
+  
+  <!-- Contact Section -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-four-fifths">
+          <div class="content has-text-centered">
+            <h2 class="title is-4">Contact</h2>
+            <p>
+              Welcome to check our paper for more details of this research work. If you have any comments or questions, please feel free to contact us.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
-  </section> -->
-<!--End paper poster -->
+  </section>
+  <!-- End Contact Section -->
 
-
-<!--BibTex citation -->
+  <!--BibTex citation -->
   <section class="section" id="BibTeX">
     <div class="container is-max-desktop content">
-      <h2 class="title">BibTeX</h2>
+      <p>If you find our paper and repo useful, please cite us as follows:</p>
       <div class="notification is-light">
         <button class="button is-small is-info is-light is-pulled-right" onclick="copyToClipboard()">
           <span class="icon">
@@ -302,8 +489,8 @@
         </script>
       </div>
     </div>
-</section>
-<!--End BibTex citation -->
+  </section>
+  <!--End BibTex citation -->
 
 
   <footer class="footer">
